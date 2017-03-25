@@ -46,6 +46,9 @@ namespace NewtonVR
         [HideInInspector]
         public HandState CurrentHandState = HandState.Uninitialized;
 
+		private bool IsShaking = false;
+		private ushort amplitude = 100;
+
         private Dictionary<NVRInteractable, Dictionary<Collider, float>> CurrentlyHoveringOver;
 
         public NVRInteractable CurrentlyInteracting;
@@ -134,6 +137,18 @@ namespace NewtonVR
             }
         }
 
+		public void StartShake(ushort amplitude)
+		{
+			IsShaking = true;
+			if(amplitude >= 0 && amplitude <= 2000)
+				this.amplitude = amplitude;
+		}
+
+		public void EndShake()
+		{
+			IsShaking = false;
+			this.amplitude = 100;
+		}
 
         public virtual void PreInitialize(NVRPlayer player)
         {
@@ -532,12 +547,14 @@ namespace NewtonVR
 
             if (EstimationSampleIndex >= LastPositions.Length)
                 EstimationSampleIndex = 0;
+			if (InputDevice != null && InputDevice.GetTouch(NVRButtons.Trigger))
+				InputDevice.TriggerHapticPulse(100);
 
-            if (InputDevice != null && IsInteracting == false && IsHovering == true)
+            if (InputDevice != null && IsInteracting == false)
             {
-                if (Player.VibrateOnHover == true)
+				if ( (IsHovering == true && Player.VibrateOnHover == true) || IsShaking == true)
                 {
-                    InputDevice.TriggerHapticPulse(100);
+					InputDevice.TriggerHapticPulse(amplitude);
                 }
             }
         }
