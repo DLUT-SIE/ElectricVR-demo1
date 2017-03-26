@@ -48,6 +48,7 @@ namespace NewtonVR
 
 		private bool IsShaking = false;
 		private ushort amplitude = 100;
+		private float _LastShakeTime = 1000f;
 
         private Dictionary<NVRInteractable, Dictionary<Collider, float>> CurrentlyHoveringOver;
 
@@ -142,6 +143,7 @@ namespace NewtonVR
 			IsShaking = true;
 			if(amplitude >= 0 && amplitude <= 3000)
 				this.amplitude = amplitude;
+			_LastShakeTime = Time.time;
 		}
 
 		public void EndShake()
@@ -557,6 +559,9 @@ namespace NewtonVR
 					InputDevice.TriggerHapticPulse(amplitude);
                 }
             }
+
+			if (_LastShakeTime + 1 < Time.time)
+				EndShake ();
         }
 
         public virtual void BeginInteraction(NVRInteractable interactable)
