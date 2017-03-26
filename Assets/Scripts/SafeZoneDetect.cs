@@ -6,19 +6,22 @@ using UnityEngine.UI;
 public class SafeZoneDetect : MonoBehaviour {
 	public GameObject GUI_text;
 	private Text text;
+	private bool LeftHand_inside, RightHand_inside;
 	// Use this for initialization
 	void Start () {
 		text = GUI_text.GetComponent<Text> ();
-		Debug.Log ("init:" + text);
-		text.enabled = false;
+		LeftHand_inside = true;
+		RightHand_inside = true;
 	}
 
 	void OnTriggerEnter(Collider col)
 	{
-		Debug.Log ("in");
-		//if (col.gameObject.name == "DangerZone") {
-		//	text.enabled = true;
-		//}
+		if (col.name.Equals ("LeftHand"))
+			LeftHand_inside = true;
+		else if (col.name.Equals ("RightHand"))
+			RightHand_inside = true;
+		if(LeftHand_inside && RightHand_inside)
+			text.enabled = false;
 	}
 
 	void OnTriggerStay(Collider col)
@@ -27,14 +30,16 @@ public class SafeZoneDetect : MonoBehaviour {
 
 	void OnTriggerExit(Collider col)
 	{
-		Debug.Log ("out");
-		//if (col.gameObject.name == "DangerZone") {
-		//	text.enabled = false;
-		//}
+		if (col.name.Equals ("LeftHand"))
+			LeftHand_inside = false;
+		else if (col.name.Equals ("RightHand"))
+			RightHand_inside = false;
+		if(!LeftHand_inside || !RightHand_inside)
+			text.enabled = true;
 	}	
 
 	// Update is called once per frame
 	void Update () {
-		Debug.Log ("working");
+		//Debug.Log ("working");
 	}
 }
