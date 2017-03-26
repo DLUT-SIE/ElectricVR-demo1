@@ -140,7 +140,7 @@ namespace NewtonVR
 		public void StartShake(ushort amplitude)
 		{
 			IsShaking = true;
-			if(amplitude >= 0 && amplitude <= 2000)
+			if(amplitude >= 0 && amplitude <= 3000)
 				this.amplitude = amplitude;
 		}
 
