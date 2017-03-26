@@ -11,6 +11,45 @@ public class OnHitExplode : MonoBehaviour {
 	void Start () {
 	}
 
+	void OnCollisionEnter(Collision collision){
+		Debug.Log (collision.transform.parent.name);
+		Transform NVRplayer = collision.transform.parent;
+		Transform Hand = null;
+		if (NVRplayer.name.Equals ("NVRPlayer")) {
+			explosion.transform.position = collision.transform.position;
+			explosion.GetComponent <Detonator> ().Explode ();
+		}
+	}
+
+	void OnCollisionStay(Collision collision){
+		Transform NVRplayer = collision.transform.parent;
+		Transform Hand = null;
+		if (NVRplayer.name.Equals ("NVRPlayer")) {
+			if (collision.transform.name.StartsWith ("Left"))
+				Hand = NVRplayer.FindChild ("LeftHand");
+			else if (collision.transform.name.StartsWith ("Right"))
+				Hand = NVRplayer.FindChild ("RightHand");
+			if (Hand != null)
+				Hand.GetComponent<NVRHand> ().StartShake(1500);
+		}
+	}
+
+	void OnCollisionExit(Collision collision)
+	{
+		Debug.Log (collision.transform.parent.name + " out");
+		Transform NVRplayer = collision.transform.parent;
+		Transform Hand = null;
+		if (NVRplayer.name.Equals ("NVRPlayer")) {
+			if (collision.transform.name.StartsWith ("Left"))
+				Hand = NVRplayer.FindChild ("LeftHand");
+			else if (collision.transform.name.StartsWith ("Right"))
+				Hand = NVRplayer.FindChild ("RightHand");
+			if (Hand != null)
+				Hand.GetComponent<NVRHand> ().EndShake ();
+		}
+	}
+
+	/*
 	void OnTriggerEnter(Collider other){
 		if (other.name.Equals ("trackhat")) {
 			try{
@@ -24,6 +63,7 @@ public class OnHitExplode : MonoBehaviour {
 		}
 	}
 
+
 	void OnTriggerExit(Collider other)
 	{
 		if (other.name.Equals ("trackhat")) {
@@ -35,7 +75,7 @@ public class OnHitExplode : MonoBehaviour {
 				Debug.Log (e);
 			}
 		}
-	}
+	}*/
 
 	// Update is called once per frame
 	void Update () {
