@@ -21,10 +21,13 @@ public class DetonatorSound : DetonatorComponent {
 	{
 		_soundComponent = (AudioSource)gameObject.AddComponent <AudioSource>();
 	}
+    private void Start()
+    {
+        Init();
+    }
 
 	void Update()
 	{
-		Init ();
 		_soundComponent.pitch = Time.timeScale;
 		
 		if (_delayedExplosionStarted)
