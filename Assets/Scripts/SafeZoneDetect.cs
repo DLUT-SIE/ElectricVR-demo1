@@ -17,11 +17,11 @@ public class SafeZoneDetect : MonoBehaviour {
 	void OnTriggerEnter(Collider col)
 	{
 		if (col.name.Equals ("LeftHand"))
-			LeftHand_inside = true;
+			LeftHand_inside = false;
 		else if (col.name.Equals ("RightHand"))
-			RightHand_inside = true;
-		if(LeftHand_inside && RightHand_inside)
-			text.enabled = false;
+			RightHand_inside = false;
+		if(!LeftHand_inside || !RightHand_inside)
+			text.enabled = true;
 	}
 
 	void OnTriggerStay(Collider col)
@@ -31,11 +31,12 @@ public class SafeZoneDetect : MonoBehaviour {
 	void OnTriggerExit(Collider col)
 	{
 		if (col.name.Equals ("LeftHand"))
-			LeftHand_inside = false;
+			LeftHand_inside = true;
 		else if (col.name.Equals ("RightHand"))
-			RightHand_inside = false;
-		if(!LeftHand_inside || !RightHand_inside)
-			text.enabled = true;
+			RightHand_inside = true;
+		if(LeftHand_inside && RightHand_inside)
+			text.enabled = false;
+		
 	}	
 
 	// Update is called once per frame
