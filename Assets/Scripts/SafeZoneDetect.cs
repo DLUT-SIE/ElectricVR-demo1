@@ -10,6 +10,7 @@ public class SafeZoneDetect : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		text = GUI_text.GetComponent<Text> ();
+		text.enabled = false;
 		LeftHand_inside = true;
 		RightHand_inside = true;
 	}
