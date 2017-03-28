@@ -282,15 +282,13 @@ public class Detonator : MonoBehaviour {
 	private float _lastExplosionTime = 1000f;
 	void Update () 
     {
-		/*
-		 * if (destroyTime > 0f)
+		if (destroyTime > 0f)
 		{
 			if (_lastExplosionTime + destroyTime <= Time.time)
 			{
 				Destroy(gameObject);
 			}
 		}
-		*/
 	}
 	
 	private bool _firstComponentUpdate = true;
