@@ -6,18 +6,24 @@ using UnityEngine;
 public class OnHitExplode : MonoBehaviour {
 
 	public GameObject explosion;
+	private bool explode_finish;
 
 	// Use this for initialization
 	void Start () {
+		explode_finish = true;
+	}
+	IEnumerator explode()
+	{
+		Instantiate (explosion);
+		explode_finish = false;
+		yield return new WaitForSeconds (3f);
+		explode_finish = true;
 	}
 
 	void OnCollisionEnter(Collision collision){
-		Debug.Log (collision.transform.parent.name);
 		Transform NVRplayer = collision.transform.parent;
-		Transform Hand = null;
-		if (NVRplayer.name.Equals ("NVRPlayer")) {
-			explosion.transform.position = collision.transform.position;
-			explosion.GetComponent <Detonator> ().Explode ();
+		if (NVRplayer.name.Equals ("NVRPlayer") && explode_finish) {
+			StartCoroutine (explode());
 		}
 	}
 
@@ -36,7 +42,6 @@ public class OnHitExplode : MonoBehaviour {
 
 	void OnCollisionExit(Collision collision)
 	{
-		Debug.Log (collision.transform.parent.name + " out");
 		Transform NVRplayer = collision.transform.parent;
 		Transform Hand = null;
 		if (NVRplayer.name.Equals ("NVRPlayer")) {
