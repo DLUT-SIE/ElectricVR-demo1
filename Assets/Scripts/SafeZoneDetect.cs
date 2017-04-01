@@ -4,13 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SafeZoneDetect : MonoBehaviour {
-	public GameObject GUI_text;
-	private Text text;
-	private bool LeftHand_inside, RightHand_inside;
+	private GUIcontrol gui;
+	public bool LeftHand_inside, RightHand_inside;
 	// Use this for initialization
 	void Start () {
-		text = GUI_text.GetComponent<Text> ();
-		text.enabled = false;
+		gui = FindObjectOfType<GUIcontrol> ();
 		LeftHand_inside = true;
 		RightHand_inside = true;
 	}
@@ -21,8 +19,8 @@ public class SafeZoneDetect : MonoBehaviour {
 			LeftHand_inside = false;
 		else if (col.name.Equals ("RightHand"))
 			RightHand_inside = false;
-		if(!LeftHand_inside || !RightHand_inside)
-			text.enabled = true;
+		if (!LeftHand_inside || !RightHand_inside)
+			gui.show_text ("警告:您已进入危险区域！");
 	}
 
 	void OnTriggerStay(Collider col)
@@ -35,8 +33,8 @@ public class SafeZoneDetect : MonoBehaviour {
 			LeftHand_inside = true;
 		else if (col.name.Equals ("RightHand"))
 			RightHand_inside = true;
-		if(LeftHand_inside && RightHand_inside)
-			text.enabled = false;
+		if (LeftHand_inside && RightHand_inside)
+			gui.hide_text ();
 		
 	}	
 

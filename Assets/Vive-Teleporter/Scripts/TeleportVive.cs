@@ -59,7 +59,8 @@ public class TeleportVive : MonoBehaviour {
     void Start()
     {
         // Disable the pointer graphic (until the user holds down on the touchpad)
-        Pointer.enabled = false;
+		if(Pointer)
+        	Pointer.enabled = false;
 
         // Ensure we mark the player as not teleporting
         CurrentTeleportState = TeleportState.None;
@@ -158,6 +159,12 @@ public class TeleportVive : MonoBehaviour {
 
 	void Update ()
     {
+		if (Pointer == null) {
+			GameObject go = GameObject.Find ("Pointer");
+			if (go == null)
+				return;
+			Pointer = go.GetComponent<ParabolicPointer>();
+		}
         // If we are currently teleporting (ie handling the fade in/out transition)...
         if(CurrentTeleportState == TeleportState.Teleporting)
         {
