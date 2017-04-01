@@ -43,7 +43,7 @@ public class DetonatorSparks : DetonatorComponent
 		_sparks.transform.localPosition = localPosition;
 		_sparks.transform.localRotation = Quaternion.identity;
 		_sparksEmitter.material = sparksMaterial;
-		_sparksEmitter.force = Physics.gravity / 3; //don't fall fast - these are sparks
+		_sparksEmitter.force = Physics.gravity / 10; //don't fall fast - these are sparks
 		_sparksEmitter.useExplicitColorAnimation = false;
 		_sparksEmitter.useWorldSpace = MyDetonator().useWorldSpace;
 		_sparksEmitter.upwardsBias = MyDetonator().upwardsBias;

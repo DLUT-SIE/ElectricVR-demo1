@@ -4,20 +4,24 @@ using NewtonVR;
 using UnityEngine;
 
 public class OnHitExplode : MonoBehaviour {
-
+	
 	public GameObject explosion;
 	private bool explode_finish;
+	private GUIcontrol gui;
 
 	// Use this for initialization
 	void Start () {
+		gui = FindObjectOfType<GUIcontrol> ();
 		explode_finish = true;
 	}
 	IEnumerator explode()
 	{
 		Instantiate (explosion);
 		explode_finish = false;
-		yield return new WaitForSeconds (3f);
-		explode_finish = true;
+		gui.show_text ("错误操作:非法触摸！\n(按下Trigger键重启场景)", 10);
+		yield return new WaitForSeconds (5f);
+		GameControl.GAME_OVER ();
+		//explode_finish = true;
 	}
 
 	void OnCollisionEnter(Collision collision){
