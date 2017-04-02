@@ -16,7 +16,8 @@ public class OnHitExplode : MonoBehaviour {
 	}
 	IEnumerator explode()
 	{
-		Instantiate (explosion);
+		GameObject go = Instantiate (explosion);
+		go.SetActive (true);
 		explode_finish = false;
 		gui.show_text ("错误操作:非法触摸！\n(按下Trigger键重启场景)", 10);
 		yield return new WaitForSeconds (5f);

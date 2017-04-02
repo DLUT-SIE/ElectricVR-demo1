@@ -54,7 +54,9 @@ public class DetonatorSound : DetonatorComponent {
 	//		_soundComponent.minVolume = minVolume;
 	//		_soundComponent.maxVolume = maxVolume;
 	//		_soundComponent.rolloffFactor = rolloffFactor;
-			
+			_idx = (int)(Random.value * nearSounds.Length);
+			_soundComponent.PlayOneShot(nearSounds[_idx]);
+			/*
 			if (Vector3.Distance(Camera.main.transform.position, this.transform.position) < distanceThreshold)
 			{
 				_idx = (int)(Random.value * nearSounds.Length);
@@ -65,6 +67,7 @@ public class DetonatorSound : DetonatorComponent {
 				_idx = (int)(Random.value * farSounds.Length);
 				_soundComponent.PlayOneShot(farSounds[_idx]);
 			}	
+			*/
 			_delayedExplosionStarted = false;
 			_explodeDelay = 0f;			
 		}
