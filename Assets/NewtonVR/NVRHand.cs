@@ -16,7 +16,7 @@ namespace NewtonVR
         public float HoldButtonAxis { get { return Inputs[HoldButton].SingleAxis; } }
 
         public NVRButtons UseButton = NVRButtons.Trigger;
-        public bool UseButtonDown { get { return Inputs[UseButton].PressDown; } }
+		public bool UseButtonDown { get { return Inputs[UseButton].PressDown; } }
         public bool UseButtonUp { get { return Inputs[UseButton].PressUp; } }
         public bool UseButtonPressed { get { return Inputs[UseButton].IsPressed; } }
         public float UseButtonAxis { get { return Inputs[UseButton].SingleAxis; } }
