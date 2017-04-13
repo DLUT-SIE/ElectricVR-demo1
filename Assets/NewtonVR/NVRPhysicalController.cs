@@ -184,7 +184,8 @@ namespace NewtonVR
 
                 customCollidersTransform.parent = PhysicalController.transform;
                 customCollidersTransform.localPosition = Vector3.zero;
-                customCollidersTransform.localRotation = Quaternion.identity;
+                //customCollidersTransform.localRotation = Quaternion.identity;
+				customCollidersTransform.localRotation = Quaternion.Euler(-90, -90, 0);
                 customCollidersTransform.localScale = Vector3.one;
 
                 foreach (Collider col in customColliders.GetComponentsInChildren<Collider>())
@@ -202,8 +203,10 @@ namespace NewtonVR
 
                 customCollidersTransform.parent = PhysicalController.transform;
                 customCollidersTransform.localPosition = Vector3.zero;
-                customCollidersTransform.localRotation = Quaternion.identity;
+				customCollidersTransform.localRotation = Quaternion.Euler(-90, -90, 0);
+				//customCollidersTransform.localRotation = Quaternion.identity;
                 customCollidersTransform.localScale = Hand.CustomPhysicalColliders.transform.localScale;
+
             }
 
             Colliders = customCollidersTransform.GetComponentsInChildren<Collider>();
