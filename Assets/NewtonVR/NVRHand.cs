@@ -789,7 +789,8 @@ namespace NewtonVR
                 RenderModel.transform.parent = this.transform;
                 RenderModel.transform.localScale = RenderModel.transform.localScale;
                 RenderModel.transform.localPosition = Vector3.zero;
-                RenderModel.transform.localRotation = Quaternion.identity;
+				RenderModel.transform.localRotation =  Quaternion.Euler(-90, -90, 0);
+
             }
         }
 
