@@ -14,9 +14,10 @@ public class OnHitExplode : MonoBehaviour {
 		gui = FindObjectOfType<GUIcontrol> ();
 		explode_finish = true;
 	}
-	IEnumerator explode()
+	IEnumerator explode(Collision collision)
 	{
 		GameObject go = Instantiate (explosion);
+		go.transform.position = collision.transform.position;
 		go.SetActive (true);
 		explode_finish = false;
 		gui.show_text ("错误操作:非法触摸！\n(按下Trigger键重启场景)");
@@ -28,7 +29,7 @@ public class OnHitExplode : MonoBehaviour {
 	void OnCollisionEnter(Collision collision){
 		Transform NVRplayer = collision.transform.parent;
 		if (NVRplayer.name.Equals ("NVRPlayer") && explode_finish) {
-			StartCoroutine (explode());
+			StartCoroutine (explode(collision));
 		}
 	}
 

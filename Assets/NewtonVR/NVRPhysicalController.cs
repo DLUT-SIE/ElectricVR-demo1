@@ -23,7 +23,7 @@ namespace NewtonVR
         protected float AttachedRotationMagic = 20f;
         protected float AttachedPositionMagic = 3000f;
 
-        private Type[] KeepTypes = new Type[] {typeof(MeshFilter), typeof(Renderer), typeof(Transform), typeof(Rigidbody)};
+		private Type[] KeepTypes = new Type[] {typeof(MeshFilter), typeof(Renderer), typeof(Transform), typeof(Rigidbody), typeof(Animator)};
 
         public void Initialize(NVRHand trackingHand, bool initialState)
         {
@@ -162,14 +162,14 @@ namespace NewtonVR
             PhysicalController.transform.rotation = Hand.transform.rotation;
 
             PhysicalController.SetActive(true);
-
+			PhysicalController.GetComponentInChildren<Animator> ().SetTrigger ("Grab");
             State = true;
         }
 
         public void Off()
         {
             PhysicalController.SetActive(false);
-
+			Hand.GetComponentInChildren<Animator> ().SetTrigger ("Release");
             State = false;
         }
 
