@@ -378,6 +378,7 @@ namespace NewtonVR
                             VisibilityLocked = true;
                             SetVisibility(VisibilityLevel.Visible);
                             CurrentHandState = HandState.GripDownNotInteracting;
+
                         }
                     }
                     else if (HoldButtonDown == true && IsInteracting == true)
@@ -385,14 +386,13 @@ namespace NewtonVR
                         if (CurrentHandState != HandState.GripDownInteracting && VisibilityLocked == false)
                         {
                             VisibilityLocked = true;
-                            if (Player.MakeControllerInvisibleOnInteraction == true)
-                            {
-                                SetVisibility(VisibilityLevel.Invisible);
-                            }
-                            else
-                            {
-                                SetVisibility(VisibilityLevel.Ghost);
-                            }
+							if (Player.ControllerStateOnInteraction == ControllerState.Invisible) {
+								SetVisibility (VisibilityLevel.Invisible);
+							} else if (Player.ControllerStateOnInteraction == ControllerState.Visible) {
+								SetVisibility (VisibilityLevel.Visible);
+							} else {
+								SetVisibility (VisibilityLevel.Ghost);
+							}
                             CurrentHandState = HandState.GripDownInteracting;
                         }
                     }
@@ -437,7 +437,7 @@ namespace NewtonVR
                     }
                 }
             }
-            else if (Player.PhysicalHands == false && Player.MakeControllerInvisibleOnInteraction == true)
+            else if (Player.PhysicalHands == false && Player.ControllerStateOnInteraction == ControllerState.Invisible)
             {
                 if (IsInteracting == true)
                 {

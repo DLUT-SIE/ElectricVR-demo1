@@ -7,6 +7,12 @@ using UnityEngine.Events;
 
 namespace NewtonVR
 {
+	public enum ControllerState
+	{
+		Visible=0,
+		Invisible=1,
+		Ghost=2,
+	};
     public class NVRPlayer : MonoBehaviour
     {
         public const decimal NewtonVRVersion = 1.191m;
@@ -28,7 +34,7 @@ namespace NewtonVR
 
         public InterationStyle InteractionStyle;
         public bool PhysicalHands = true;
-        public bool MakeControllerInvisibleOnInteraction = false;
+		public ControllerState ControllerStateOnInteraction = ControllerState.Visible;
         public bool AutomaticallySetControllerTransparency = true;
         public bool VibrateOnHover = true;
         public int VelocityHistorySteps = 3;
